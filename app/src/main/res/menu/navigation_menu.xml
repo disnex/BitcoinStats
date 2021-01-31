@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/marketPrice"
+        android:title="Market Price" />
+
+    <item
+        android:id="@+id/txPerDay"
+        android:title="Tx per day" />
+
+    <item
+        android:id="@+id/totalTxFees"
+        android:title="Total Tx Fees" />
+</menu>
