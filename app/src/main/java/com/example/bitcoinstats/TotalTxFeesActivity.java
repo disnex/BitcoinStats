@@ -4,42 +4,100 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class TotalTxFeesActivity extends AppCompatActivity {
 
-    LineChart lineChart;
+    LineChart mpLineChart;
+    private RequestQueue mQueue;
+    final String URL = "https://api.blockchain.info/charts/transaction-fees-usd?timespan=1year&rollingAverage=24hours&format=json";
+    ArrayList<Entry> dataVals = new ArrayList<Entry>();
+    LineDataSet lineDataSet;
+    ArrayList<ILineDataSet> dataSet = new ArrayList<>();
+    LineData data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_total_tx_fees);
 
-        lineChart = (LineChart)findViewById(R.id.line_chart2);
-        LineDataSet lineDataSet = new LineDataSet(dataValues1(), "Data Set 1");
-        ArrayList<ILineDataSet> dataSet = new ArrayList<>();
-        dataSet.add(lineDataSet);
+        mpLineChart = (LineChart)findViewById(R.id.line_chart_total_tx_fees);
+        mpLineChart.setTouchEnabled(true);
+        mpLineChart.setPinchZoom(true);
+        //mpLineChart.setBackgroundColor();
 
-        LineData data = new LineData(dataSet);
-        lineChart.setData(data);
-        lineChart.invalidate();
-    }
+        Description description = new Description();
+        description.setText("Total Tx Fees");
+        description.setTextSize(20);
+        mpLineChart.setDescription(description);
 
-    private ArrayList<Entry> dataValues1() {
-        ArrayList<Entry> dataVals = new ArrayList<Entry>();
-        dataVals.add(new Entry(0,20));
-        dataVals.add(new Entry(1,22));
-        dataVals.add(new Entry(2,24));
-        dataVals.add(new Entry(3,26));
-        dataVals.add(new Entry(4,28));
-        dataVals.add(new Entry(5,30));
+        XAxis xAxis = mpLineChart.getXAxis();
+        xAxis.setValueFormatter(new ValueFormatter() {
+            private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MM yyyy", Locale.ENGLISH);
 
-        return dataVals;
+            @Override
+            public String getFormattedValue(float value) {
+                long millis = (long) value * 1000L;
+                return mFormat.format(new Date(millis));
+            }
+        });
+        xAxis.setLabelCount(5, true);
+
+        mQueue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("values");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject oneObject = jsonArray.getJSONObject(i);
+
+                                Float unixTimestamp = Float.valueOf(oneObject.getString("x"));
+                                Float value = Float.valueOf(oneObject.getString("y"));
+
+                                dataVals.add(new Entry(unixTimestamp, value));
+                            }
+                            lineDataSet = new LineDataSet(dataVals, "Fees");
+                            lineDataSet.setLineWidth(2);
+                            lineDataSet.setValueTextSize(12);
+                            dataSet.add(lineDataSet);
+                            data =  new LineData(dataSet);
+                            mpLineChart.setData(data);
+                            mpLineChart.invalidate();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request);
     }
 }

@@ -11,25 +11,59 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class TxPerDayActivity extends AppCompatActivity {
-    private TextView mTextViewResult;
+    LineChart mpLineChart;
     private RequestQueue mQueue;
-    final String URL = "https://api.blockchain.info/charts/transactions-per-second?timespan=3hours&rollingAverage=8hours&format=json";
+    final String URL = "https://api.blockchain.info/charts/n-transactions?timespan=1year&format=json";
+    ArrayList<Entry> dataVals = new ArrayList<Entry>();
+    LineDataSet lineDataSet;
+    ArrayList<ILineDataSet> dataSet = new ArrayList<>();
+    LineData data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tx_per_day);
 
-        mTextViewResult = (TextView)findViewById(R.id.textView_result);
+        mpLineChart = (LineChart)findViewById(R.id.line_chart_total_tx_fees);
+        mpLineChart.setTouchEnabled(true);
+        mpLineChart.setPinchZoom(true);
+        //mpLineChart.setBackgroundColor();
+
+        Description description = new Description();
+        description.setText("Tx per day");
+        description.setTextSize(20);
+        mpLineChart.setDescription(description);
+
+        XAxis xAxis = mpLineChart.getXAxis();
+        xAxis.setValueFormatter(new ValueFormatter() {
+            private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MM yyyy", Locale.ENGLISH);
+
+            @Override
+            public String getFormattedValue(float value) {
+                long millis = (long) value * 1000L;
+                return mFormat.format(new Date(millis));
+            }
+        });
+        xAxis.setLabelCount(5, true);
 
         mQueue = Volley.newRequestQueue(this);
 
@@ -40,17 +74,20 @@ public class TxPerDayActivity extends AppCompatActivity {
                         try {
                             JSONArray jsonArray = response.getJSONArray("values");
                             for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jedan = jsonArray.getJSONObject(i);
+                                JSONObject oneObject = jsonArray.getJSONObject(i);
 
-                                String x = jedan.getString("x");
-                                String y = jedan.getString("y");
+                                Float unixTimestamp = Float.valueOf(oneObject.getString("x"));
+                                Float value = Float.valueOf(oneObject.getString("y"));
 
-                                long dv = Long.valueOf(x)*1000;
-                                Date df = new java.util.Date(dv);
-                                String vv = new SimpleDateFormat("dd MM yyyy").format(df);
-
-                                mTextViewResult.append("X = " + vv + " | Y = " + y + "\n\n");
+                                dataVals.add(new Entry(unixTimestamp, value));
                             }
+                            lineDataSet = new LineDataSet(dataVals, "Txs");
+                            lineDataSet.setLineWidth(2);
+                            lineDataSet.setValueTextSize(12);
+                            dataSet.add(lineDataSet);
+                            data =  new LineData(dataSet);
+                            mpLineChart.setData(data);
+                            mpLineChart.invalidate();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
