@@ -52,8 +52,8 @@ public class TotalTxFeesActivity extends AppCompatActivity {
         mpLineChart.setBackgroundColor(getResources().getColor(R.color.colorBackground));
 
         Description description = new Description();
-        description.setText("Total Tx Fees");
-        description.setTextSize(20);
+        description.setText("Total Tx Fees per day");
+        description.setTextSize(12);
         mpLineChart.setDescription(description);
 
         XAxis xAxis = mpLineChart.getXAxis();

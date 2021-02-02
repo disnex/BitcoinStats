@@ -52,8 +52,8 @@ public class TxPerDayActivity extends AppCompatActivity {
         mpLineChart.setBackgroundColor(getResources().getColor(R.color.colorBackground));
 
         Description description = new Description();
-        description.setText("Tx per day");
-        description.setTextSize(20);
+        description.setText("Number of Tx per day");
+        description.setTextSize(12);
         mpLineChart.setDescription(description);
 
         XAxis xAxis = mpLineChart.getXAxis();

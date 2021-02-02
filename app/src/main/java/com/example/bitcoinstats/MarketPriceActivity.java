@@ -58,7 +58,7 @@ public class MarketPriceActivity extends AppCompatActivity {
 
         Description description = new Description();
         description.setText("Market price");
-        description.setTextSize(20);
+        description.setTextSize(12);
         mpLineChart.setDescription(description);
 
         XAxis xAxis = mpLineChart.getXAxis();
