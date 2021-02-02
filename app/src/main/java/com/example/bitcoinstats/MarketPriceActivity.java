@@ -53,6 +53,7 @@ public class MarketPriceActivity extends AppCompatActivity {
         mpLineChart = (LineChart)findViewById(R.id.line_chart_market_price);
         mpLineChart.setTouchEnabled(true);
         mpLineChart.setPinchZoom(true);
+        mpLineChart.setDoubleTapToZoomEnabled(true);
         mpLineChart.setBackgroundColor(getResources().getColor(R.color.colorBackground));
 
         Description description = new Description();
@@ -83,6 +84,9 @@ public class MarketPriceActivity extends AppCompatActivity {
 
         YAxis yAxisRight = mpLineChart.getAxisRight();
         yAxisRight.setEnabled(false);
+
+        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
+        mpLineChart.setMarker(mv);
 
         mQueue = Volley.newRequestQueue(this);
 

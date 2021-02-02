@@ -48,7 +48,8 @@ public class TotalTxFeesActivity extends AppCompatActivity {
         mpLineChart = (LineChart)findViewById(R.id.line_chart_total_tx_fees);
         mpLineChart.setTouchEnabled(true);
         mpLineChart.setPinchZoom(true);
-        //mpLineChart.setBackgroundColor();
+        mpLineChart.setDoubleTapToZoomEnabled(true);
+        mpLineChart.setBackgroundColor(getResources().getColor(R.color.colorBackground));
 
         Description description = new Description();
         description.setText("Total Tx Fees");
@@ -67,8 +68,6 @@ public class TotalTxFeesActivity extends AppCompatActivity {
         });
         xAxis.setLabelCount(5, true);
 
-        mQueue = Volley.newRequestQueue(this);
-
         YAxis yAxis = mpLineChart.getAxisLeft();
         yAxis.setValueFormatter(new ValueFormatter() {
             @Override
@@ -77,6 +76,14 @@ public class TotalTxFeesActivity extends AppCompatActivity {
                 return value + " $";
             }
         });
+
+        YAxis yAxisRight = mpLineChart.getAxisRight();
+        yAxisRight.setEnabled(false);
+
+        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
+        mpLineChart.setMarker(mv);
+
+        mQueue = Volley.newRequestQueue(this);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>() {

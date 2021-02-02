@@ -49,6 +49,7 @@ public class TxPerDayActivity extends AppCompatActivity {
         mpLineChart.setTouchEnabled(true);
         mpLineChart.setPinchZoom(true);
         mpLineChart.setDoubleTapToZoomEnabled(true);
+        mpLineChart.setBackgroundColor(getResources().getColor(R.color.colorBackground));
 
         Description description = new Description();
         description.setText("Tx per day");
@@ -66,6 +67,12 @@ public class TxPerDayActivity extends AppCompatActivity {
             }
         });
         xAxis.setLabelCount(5, true);
+
+        YAxis yAxisRight = mpLineChart.getAxisRight();
+        yAxisRight.setEnabled(false);
+
+        MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
+        mpLineChart.setMarker(mv);
 
         mQueue = Volley.newRequestQueue(this);
 
