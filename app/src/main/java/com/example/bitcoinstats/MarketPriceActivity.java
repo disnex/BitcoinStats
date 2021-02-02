@@ -11,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -20,6 +21,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -51,7 +53,7 @@ public class MarketPriceActivity extends AppCompatActivity {
         mpLineChart = (LineChart)findViewById(R.id.line_chart_market_price);
         mpLineChart.setTouchEnabled(true);
         mpLineChart.setPinchZoom(true);
-        //mpLineChart.setBackgroundColor();
+        mpLineChart.setBackgroundColor(getResources().getColor(R.color.colorBackground));
 
         Description description = new Description();
         description.setText("Market price");
@@ -69,6 +71,18 @@ public class MarketPriceActivity extends AppCompatActivity {
             }
         });
         xAxis.setLabelCount(5, true);
+
+        YAxis yAxisLeft = mpLineChart.getAxisLeft();
+        yAxisLeft.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+
+                return value + " $";
+            }
+        });
+
+        YAxis yAxisRight = mpLineChart.getAxisRight();
+        yAxisRight.setEnabled(false);
 
         mQueue = Volley.newRequestQueue(this);
 
@@ -89,9 +103,11 @@ public class MarketPriceActivity extends AppCompatActivity {
                             lineDataSet = new LineDataSet(dataVals, "Price");
                             lineDataSet.setLineWidth(2);
                             lineDataSet.setValueTextSize(12);
+                            lineDataSet.setValueFormatter(new LargeValueFormatter());
                             dataSet.add(lineDataSet);
                             data =  new LineData(dataSet);
                             mpLineChart.setData(data);
+                            mpLineChart.animateXY(2000,2000);
                             mpLineChart.invalidate();
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -10,9 +10,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -67,6 +69,15 @@ public class TotalTxFeesActivity extends AppCompatActivity {
 
         mQueue = Volley.newRequestQueue(this);
 
+        YAxis yAxis = mpLineChart.getAxisLeft();
+        yAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+
+                return value + " $";
+            }
+        });
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -87,6 +98,7 @@ public class TotalTxFeesActivity extends AppCompatActivity {
                             dataSet.add(lineDataSet);
                             data =  new LineData(dataSet);
                             mpLineChart.setData(data);
+                            mpLineChart.animateXY(2000,2000);
                             mpLineChart.invalidate();
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -11,9 +11,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -46,7 +48,7 @@ public class TxPerDayActivity extends AppCompatActivity {
         mpLineChart = (LineChart)findViewById(R.id.line_chart_total_tx_fees);
         mpLineChart.setTouchEnabled(true);
         mpLineChart.setPinchZoom(true);
-        //mpLineChart.setBackgroundColor();
+        mpLineChart.setDoubleTapToZoomEnabled(true);
 
         Description description = new Description();
         description.setText("Tx per day");
@@ -88,6 +90,7 @@ public class TxPerDayActivity extends AppCompatActivity {
                             data =  new LineData(dataSet);
                             mpLineChart.setData(data);
                             mpLineChart.invalidate();
+                            mpLineChart.animateXY(2000,2000);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
