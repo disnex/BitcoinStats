@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this, TxPerDayActivity.class));
         } else if (id == R.id.totalTxFees) {
             startActivity(new Intent(MainActivity.this, TotalTxFeesActivity.class));
+        } else if (id == R.id.mempool) {
+            startActivity(new Intent(MainActivity.this, MempoolActivity.class));
         }
 
 

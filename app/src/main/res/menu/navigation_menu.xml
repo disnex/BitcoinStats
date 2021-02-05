@@ -15,4 +15,8 @@
     <item
         android:id="@+id/totalTxFees"
         android:title="Total Tx Fees" />
+
+    <item
+        android:id="@+id/mempool"
+        android:title="Mempool" />
 </menu>
