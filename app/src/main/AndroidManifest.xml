@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".TxDetailActivity"></activity>
+        <activity android:name=".BlockchainInfoActivity"></activity>
+        <activity android:name=".TxDetailActivity" />
         <activity android:name=".MempoolActivity" />
         <activity android:name=".TotalTxFeesActivity" />
         <activity android:name=".TxPerDayActivity" />

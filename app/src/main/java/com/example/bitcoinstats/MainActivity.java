@@ -17,17 +17,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.LargeValueFormatter;
+
 import com.google.android.material.navigation.NavigationView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String user = "_";
+    public static final String password = "_";
+    public static final String host = "_";
+    public static final String port = "_";
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -89,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this, TotalTxFeesActivity.class));
         } else if (id == R.id.mempool) {
             startActivity(new Intent(MainActivity.this, MempoolActivity.class));
+        } else if (id == R.id.blockchainInfo) {
+            startActivity(new Intent(MainActivity.this, BlockchainInfoActivity.class));
         }
 
 

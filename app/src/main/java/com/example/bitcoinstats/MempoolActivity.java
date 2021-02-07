@@ -19,6 +19,11 @@ import java.util.List;
 import wf.bitcoin.javabitcoindrpcclient.BitcoinJSONRPCClient;
 import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient;
 
+import static com.example.bitcoinstats.MainActivity.host;
+import static com.example.bitcoinstats.MainActivity.password;
+import static com.example.bitcoinstats.MainActivity.port;
+import static com.example.bitcoinstats.MainActivity.user;
+
 public class MempoolActivity extends AppCompatActivity implements TransactionAdapter.OnItemClickListener {
 
     public static final String EXTRA_TXID = "txId";
@@ -40,10 +45,7 @@ public class MempoolActivity extends AppCompatActivity implements TransactionAda
         mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        String user = "_";
-        String password = "_";
-        String host = "_";
-        String port = "_";
+
 
         try {
             URL url = new URL("http://" + user + ':' + password + "@" + host + ":" + port + "/");
