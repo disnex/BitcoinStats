@@ -38,6 +38,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -47,7 +48,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation "androidx.navigation:navigation-fragment:2.3.3"
     implementation "androidx.navigation:navigation-ui:2.3.3"
-    implementation 'com.neemre.btcd-cli4j:btcd-cli4j-core:0.5.1'
+    implementation "androidx.cardview:cardview:1.0.0"
 }
 
 
