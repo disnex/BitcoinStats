@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BlockDetailActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView_block_detail_hash_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="35dp"
+            android:maxLines="1"
+            android:text="Hash"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+        <TextView
+            android:id="@+id/textView_block_detail_hash_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Value"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_below="@+id/textView_block_detail_hash_title" />
+
+        <TextView
+            android:id="@+id/textView_block_detail_confirmations_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="Confirmations:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_below="@+id/textView_block_detail_hash_value"
+            android:layout_marginTop="35dp"
+            android:layout_marginStart="35dp"/>
+
+        <TextView
+            android:id="@+id/textView_block_detail_confirmations_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Value"
+            android:textSize="22dp"
+            android:layout_toRightOf="@id/textView_block_detail_confirmations_title"
+            android:layout_alignTop="@id/textView_block_detail_confirmations_title"
+            android:layout_marginLeft="25dp" />
+
+        <TextView
+            android:id="@+id/textView_block_detail_size_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="Size:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_below="@id/textView_block_detail_confirmations_title"
+            android:layout_marginTop="35dp"
+            android:layout_marginStart="35dp"/>
+
+        <TextView
+            android:id="@+id/textView_block_detail_size_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Value"
+            android:textSize="22dp"
+            android:layout_toRightOf="@id/textView_block_detail_size_title"
+            android:layout_alignTop="@id/textView_block_detail_size_title"
+            android:layout_marginLeft="25dp"/>
+
+        <TextView
+            android:id="@+id/textView_block_detail_height_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="Height:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_marginTop="35dp"
+            android:layout_marginStart="35dp"
+            android:layout_below="@id/textView_block_detail_size_title"/>
+
+        <TextView
+            android:id="@+id/textView_block_detail_height_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Value"
+            android:textSize="22dp"
+            android:layout_toRightOf="@id/textView_block_detail_height_title"
+            android:layout_alignTop="@id/textView_block_detail_height_title"
+            android:layout_marginLeft="25dp"/>
+
+        <TextView
+            android:id="@+id/textView_block_detail_txs_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TRANSACTIONS IN THIS BLOCK"
+            android:layout_below="@id/textView_block_detail_height_title"
+            android:layout_marginTop="70dp"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/textView_block_detail_txs_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_below="@id/textView_block_detail_txs_title"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"/>
+
+        <TextView
+            android:id="@+id/textView_block_detail_head_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BLOCK INFO"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
+
+
+    </RelativeLayout>
+
+</ScrollView>

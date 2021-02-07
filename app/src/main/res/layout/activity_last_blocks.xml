@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MempoolActivity">
+    tools:context=".LastBlocksActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recycler_view_last_blocks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/transaction_item"/>
+        tools:listitem="@layout/block_item"/>
 
 </RelativeLayout>

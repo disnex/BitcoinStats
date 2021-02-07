@@ -1,26 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/home"
-        android:title="Home" />
 
-    <item
-        android:id="@+id/marketPrice"
-        android:title="Market Price" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:title="Home" />
 
-    <item
-        android:id="@+id/txPerDay"
-        android:title="Tx per day" />
+        <item
+            android:title="Graphs" >
+            <menu>
+                <item
+                    android:id="@+id/marketPrice"
+                    android:title="Market Price" />
 
-    <item
-        android:id="@+id/totalTxFees"
-        android:title="Total Tx Fees" />
+                <item
+                    android:id="@+id/txPerDay"
+                    android:title="Tx per day" />
 
-    <item
-        android:id="@+id/mempool"
-        android:title="Mempool" />
+                <item
+                    android:id="@+id/totalTxFees"
+                    android:title="Total Tx Fees" />
+            </menu>
+        </item>
+    </group>
 
-    <item
-        android:id="@+id/blockchainInfo"
-        android:title="Blockchain Info" />
+    <group android:checkableBehavior="single">
+        <item
+            android:title="Node Info">
+            <menu>
+                <item
+                    android:id="@+id/mempool"
+                    android:title="Mempool" />
+
+                <item
+                    android:id="@+id/blockchainInfo"
+                    android:title="Blockchain Info" />
+
+                <item
+                    android:id="@+id/lastBlocks"
+                    android:title="Last 10 Blocks" />
+            </menu>
+        </item>
+    </group>
+
 </menu>

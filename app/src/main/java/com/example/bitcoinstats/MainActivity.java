@@ -92,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this, MempoolActivity.class));
         } else if (id == R.id.blockchainInfo) {
             startActivity(new Intent(MainActivity.this, BlockchainInfoActivity.class));
+        } else if (id == R.id.lastBlocks) {
+            startActivity(new Intent(MainActivity.this, LastBlocksActivity.class));
         }
 
 
